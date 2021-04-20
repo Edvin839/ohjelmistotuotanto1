@@ -52,15 +52,5 @@ namespace Ohjelmistotuotanto1
         {
             this.Text = "Laskut";
         }
-
-        //Asiakkaat toiminnallisuus
-        private void Form_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'dataSet2.asiakas' table. You can move, or remove it, as needed.
-            this.asiakasTableAdapter1.Fill(this.dataSet2.asiakas);
-            // TODO: This line of code loads data into the 'dataSet1.asiakas' table. You can move, or remove it, as needed.
-            this.asiakasTableAdapter.Fill(this.dataSet1.asiakas);
-
-        }
     }
 }
