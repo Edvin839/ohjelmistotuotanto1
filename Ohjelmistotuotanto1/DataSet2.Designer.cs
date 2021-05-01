@@ -10,6 +10,10 @@
 
 #pragma warning disable 1591
 
+using Ohjelmistotuotanto1.Properties;
+using System;
+using System.Collections.Generic;
+
 namespace Ohjelmistotuotanto1 {
     
     
@@ -1307,6 +1311,11 @@ namespace Ohjelmistotuotanto1.DataSet2TableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+
+        internal void Insert(List<Asiakkaat> asiakas)
+        {
+            throw new NotImplementedException();
         }
     }
     

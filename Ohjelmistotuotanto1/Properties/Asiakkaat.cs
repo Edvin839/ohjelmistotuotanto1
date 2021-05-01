@@ -15,12 +15,14 @@ namespace Ohjelmistotuotanto1.Properties
         public string lahiosoite;
         public string email;
         public string puhelinnro;
+        public string postinnro;
 
         public string Etunimi { get { return etunimi; } }
         public string Sukunimi {  get { return sukunimi; } }
         public string Lähiosoite { get { return lahiosoite; } }
         public string Sähköposti { get { return email; } }
         public string Puhelinnumero { get { return puhelinnro; } }
+        public string Postinumero { get { return postinnro; } }
 
     }
 }
