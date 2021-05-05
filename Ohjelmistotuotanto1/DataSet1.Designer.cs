@@ -10,6 +10,8 @@
 
 #pragma warning disable 1591
 
+using System;
+
 namespace Ohjelmistotuotanto1 {
     
     
@@ -1308,6 +1310,8 @@ namespace Ohjelmistotuotanto1.DataSet1TableAdapters {
                 }
             }
         }
+
+        
     }
     
     /// <summary>

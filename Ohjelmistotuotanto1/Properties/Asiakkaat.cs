@@ -10,19 +10,19 @@ namespace Ohjelmistotuotanto1.Properties
     {
       
       //  private char postinro;
-        public string etunimi;
-        public string sukunimi;
-        public string lahiosoite;
-        public string email;
-        public string puhelinnro;
-        public string postinnro;
+        private string etunimi;
+        private string sukunimi;
+        private string lahiosoite;
+        private string email;
+        private string puhelinnro;
+        private char postinnro;
 
-        public string Etunimi { get { return etunimi; } }
-        public string Sukunimi {  get { return sukunimi; } }
-        public string Lähiosoite { get { return lahiosoite; } }
-        public string Sähköposti { get { return email; } }
-        public string Puhelinnumero { get { return puhelinnro; } }
-        public string Postinumero { get { return postinnro; } }
+        private string Etunimi { get { return etunimi; } }
+        private string Sukunimi {  get { return sukunimi; } }
+        private string Lähiosoite { get { return lahiosoite; } }
+        private string Sähköposti { get { return email; } }
+        private string Puhelinnumero { get { return puhelinnro; } }
+        private char Postinumero { get { return postinnro; } }
 
     }
 }

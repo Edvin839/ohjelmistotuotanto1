@@ -13,7 +13,6 @@ namespace Ohjelmistotuotanto1
 {
     public partial class Form : System.Windows.Forms.Form
     {
-       private List<Asiakkaat> asiakas = new List<Asiakkaat>(); //asiakashallintalista
 
         public Form()
         {
@@ -58,18 +57,16 @@ namespace Ohjelmistotuotanto1
         }
 
         private void Form_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'dataSet2.asiakas' table. You can move, or remove it, as needed.
-            this.MuokkaaTableAdapter.Fill(this.vnDdataSet1.asiakas);
+        {           
             // TODO: This line of code loads data into the 'dataSet1.asiakas' table. You can move, or remove it, as needed.
-            this.poistaTableAdapter.Fill(this.vnDataSet.asiakas);
-
+            this.AsiakasTableAdapter.Fill(this.vnDataSet.asiakas);
         }
 
         //Asiakashallinta
 
         private void CbtnLisaaAsiakas_Click(object sender, EventArgs e)
         {
+            AloitusPaneeli.Visible = false;
             PanelLisaaAsiakas.Visible = true;
             PanelMuokkaaAsiakasta.Visible = false;
             PanelPoistaAsiakas.Visible = false;
@@ -82,6 +79,7 @@ namespace Ohjelmistotuotanto1
         }
         private void CbtnMuokkaaAsiakas_Click(object sender, EventArgs e)
         {
+            AloitusPaneeli.Visible = false;
             PanelMuokkaaAsiakasta.Visible = true;
             PanelLisaaAsiakas.Visible = false;
             PanelPoistaAsiakas.Visible = false;
@@ -90,17 +88,19 @@ namespace Ohjelmistotuotanto1
         }    
         private void CbtnPoistaAsiakas_Click(object sender, EventArgs e)
         {
+            AloitusPaneeli.Visible = false;
             PanelPoistaAsiakas.Visible = true;
             PanelLisaaAsiakas.Visible = false;
             PanelMuokkaaAsiakasta.Visible = false;
         }
 
-        //Palaa Asiakashallintaan
+        //Palaa Asiakashallintaan buttonit
         private void btnPalaaAsiakasHallintaan2_Click(object sender, EventArgs e)
         {
             PanelMuokkaaAsiakasta.Visible = false;
             PanelLisaaAsiakas.Visible = false;
             PanelPoistaAsiakas.Visible = false;
+            AloitusPaneeli.Visible = true;
         }
 
         private void btnPalaaAsiakasHallintaan3_Click(object sender, EventArgs e)
@@ -108,40 +108,37 @@ namespace Ohjelmistotuotanto1
             PanelMuokkaaAsiakasta.Visible = false;
             PanelLisaaAsiakas.Visible = false;
             PanelPoistaAsiakas.Visible = false;
+            AloitusPaneeli.Visible = true;
         }
         private void btnPalaaAsiakasHallintaan_Click(object sender, EventArgs e)
         {
             PanelLisaaAsiakas.Visible = false;
             PanelMuokkaaAsiakasta.Visible = false;
             PanelPoistaAsiakas.Visible = false;
+            AloitusPaneeli.Visible = true;
         }
 
-        //Lisää Tietoja
+        //Lisää tietoja
         private void btnTallennaUusiAsiakas_Click(object sender, EventArgs e)
         {
+           
             Validate();
+            asiakasBindingSource.EndEdit();
+            AsiakasTableAdapter.Update(this.vnDataSet);
+            AsiakasTableAdapter.Insert(tbEtunimi.Text, tbSukunimi.Text, tbEmail.Text, tbLahiosoite.Text, tbPuhelinnro.Text);
+            AsiakasTableAdapter.Fill(vnDataSet.asiakas);
+        
+            /*
             Asiakkaat Uusiasiakas = new Asiakkaat(); //Asiakkaat luokan olio
-
             Uusiasiakas.etunimi = tbEtunimi.Text;
             Uusiasiakas.sukunimi = tbSukunimi.Text;
             Uusiasiakas.lahiosoite = tbLahiosoite.Text;
             Uusiasiakas.puhelinnro = tbPuhelinnro.Text;
             Uusiasiakas.email = tbEmail.Text;
-            asiakas.Add(Uusiasiakas); //lisäään listaan
-
-            asiakasBindingSource.EndEdit();
-            asiakasBindingSource1.EndEdit();
-            MuokkaaTableAdapter.Update(this.vnDdataSet1);
-            poistaTableAdapter.Update(this.vnDataSet);
-            MuokkaaTableAdapter.Insert(asiakas);
-          //  this.MuokkaaTableAdapter.Fill(this.vnDdataSet)
+            Uusiasiakas.postinnro = char.ToString(cbPostinro.SelectedItem);
+            */
         }
-
-        private void tbPuhelinnro_KeyPress(object sender, KeyPressEventArgs e)
-        { //Sallii vain numeroiden kirjoittamisen
-            if (!Char.IsNumber(e.KeyChar) && !Char.IsControl(e.KeyChar))
-                e.Handled = true;
-        }
+       
 
         //Muokkaa Tietoja
         private void BtnMuokkaaAsiakkaanTietoja_Click(object sender, EventArgs e)
@@ -149,7 +146,61 @@ namespace Ohjelmistotuotanto1
             MiniPanelMuokkaa.Visible = true;
         }
 
-       
+        private void btnPoistaAsiakas_Click(object sender, EventArgs e)
+        {
+            int ValittuPoistettavaRiviAsiakas = 1;
+            ValittuPoistettavaRiviAsiakas = DGPoista.CurrentCell.RowIndex; //poistetaan valittu rivi DatagridView, mutta ei database
+            if (ValittuPoistettavaRiviAsiakas >= 0)
+            {
+                if (MessageBox.Show("Haluatko varmasti poistaa valitun asiakkaan?",tbEtunimi.Text + "" + MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    asiakasBindingSource.RemoveAt(ValittuPoistettavaRiviAsiakas);
+                }
+            }
+         
+        }
+        //Rajoituksia
+        private void tbPuhelinnro_KeyPress(object sender, KeyPressEventArgs e)
+        { 
+            if (!Char.IsNumber(e.KeyChar) && !Char.IsControl(e.KeyChar)) //Sallii vain numeroiden kirjoittamisen
+                e.Handled = true;
+        }
+        private void tbEtunimi_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string etunimiTeksti = tbEtunimi.Text;
+           if (etunimiTeksti.Length > 20)
+           {
+              MessageBox.Show("Etunimi ei voi olla yli 20 merkkiä!");
+           }                  
+        }
+
+        private void tbSukunimi_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string sukunimiTeksti = tbSukunimi.Text;
+            if (sukunimiTeksti.Length > 40)
+            {
+                MessageBox.Show("Sukunimi ei voi olla pidempi kuin 40 merkkiä!");
+            }
+        }
+
+        private void tbLahiosoite_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string lahiosoiteTeksi = tbLahiosoite.Text;
+            if (lahiosoiteTeksi.Length > 40)
+            {
+                MessageBox.Show("Lähiosoite ei voi olla pidempi kuin 40 merkkiä!");
+            }
+        }
+
+        private void tbEmail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string emailTeksti = tbEmail.Text;
+            if (emailTeksti.Length > 50)
+            {
+                MessageBox.Show("Sähköpostiosoite ei voi olla yli kuin 50 merkkiä!");
+            }
+
+        }
+
     }     
-    
 }
