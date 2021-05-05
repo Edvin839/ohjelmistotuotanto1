@@ -34,22 +34,12 @@ namespace Ohjelmistotuotanto1
             this.PanelAloitusMokki = new System.Windows.Forms.Panel();
             this.btnMokinMuokkaus = new Ohjelmistotuotanto1.CustomButton();
             this.btnMokinPoisto = new Ohjelmistotuotanto1.CustomButton();
-            this.btnMokinLisays = new Ohjelmistotuotanto1.CustomButton();
-            this.btnValitseToimintaAlue = new Ohjelmistotuotanto1.CustomButton();
-            this.PanelToimintaAlue = new System.Windows.Forms.Panel();
-            this.dataGridViewToimintaAlue = new System.Windows.Forms.DataGridView();
+            this.PanelMokki = new System.Windows.Forms.Panel();
+            this.lblToimintaAlue = new System.Windows.Forms.Label();
+            this.cbToimintaAlueMokille = new System.Windows.Forms.ComboBox();
+            this.toimintaalueBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.vnBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vn = new Ohjelmistotuotanto1.vn();
-            this.btnPalaa = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tbToimintaAlueNimi = new System.Windows.Forms.TextBox();
-            this.btnLisaaToimintaAlue = new System.Windows.Forms.Button();
-            this.btnMuokkaaAluetta = new System.Windows.Forms.Button();
-            this.btnPoistaToimintaAlue = new System.Windows.Forms.Button();
-            this.lblAlueenNimi = new System.Windows.Forms.Label();
-            this.tbToimintaAlueID = new System.Windows.Forms.TextBox();
-            this.btnToimintaAlueMuokkaus = new System.Windows.Forms.Button();
-            this.PanelMokki = new System.Windows.Forms.Panel();
             this.lblMokinHinta = new System.Windows.Forms.Label();
             this.tbMokinHinta = new System.Windows.Forms.TextBox();
             this.cbHenkilomaara = new System.Windows.Forms.ComboBox();
@@ -82,6 +72,22 @@ namespace Ohjelmistotuotanto1
             this.mokkiAlvDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mokkiBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnLisaaMokki = new System.Windows.Forms.Button();
+            this.btnMokinLisays = new Ohjelmistotuotanto1.CustomButton();
+            this.btnValitseToimintaAlue = new Ohjelmistotuotanto1.CustomButton();
+            this.PanelToimintaAlue = new System.Windows.Forms.Panel();
+            this.dataGridViewToimintaAlue = new System.Windows.Forms.DataGridView();
+            this.toimintaalueidDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nimiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toimintaalueBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbToimintaAlueNimi = new System.Windows.Forms.TextBox();
+            this.btnLisaaToimintaAlue = new System.Windows.Forms.Button();
+            this.btnMuokkaaAluetta = new System.Windows.Forms.Button();
+            this.btnPoistaToimintaAlue = new System.Windows.Forms.Button();
+            this.lblAlueenNimi = new System.Windows.Forms.Label();
+            this.tbToimintaAlueID = new System.Windows.Forms.TextBox();
+            this.btnToimintaAlueMuokkaus = new System.Windows.Forms.Button();
+            this.btnPalaa = new System.Windows.Forms.Button();
             this.LaskutBtn = new Ohjelmistotuotanto1.CustomButton();
             this.AsiakkaatBtn = new Ohjelmistotuotanto1.CustomButton();
             this.PalvelutBtn = new Ohjelmistotuotanto1.CustomButton();
@@ -92,24 +98,18 @@ namespace Ohjelmistotuotanto1
             this.mokkiTableAdapter = new Ohjelmistotuotanto1.vnTableAdapters.mokkiTableAdapter();
             this.postiTableAdapter = new Ohjelmistotuotanto1.vnTableAdapters.postiTableAdapter();
             this.toimintaalueTableAdapter = new Ohjelmistotuotanto1.vnTableAdapters.toimintaalueTableAdapter();
-            this.toimintaalueBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.cbToimintaAlueMokille = new System.Windows.Forms.ComboBox();
-            this.toimintaalueBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.lblToimintaAlue = new System.Windows.Forms.Label();
-            this.toimintaalueidDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nimiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelAloitusMokki.SuspendLayout();
-            this.PanelToimintaAlue.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewToimintaAlue)).BeginInit();
+            this.PanelMokki.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toimintaalueBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vnBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vn)).BeginInit();
-            this.PanelMokki.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.postiBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMokki)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mokkiBindingSource)).BeginInit();
-            this.statusStrip1.SuspendLayout();
+            this.PanelToimintaAlue.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewToimintaAlue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toimintaalueBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toimintaalueBindingSource1)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ParentPanel
@@ -126,6 +126,7 @@ namespace Ohjelmistotuotanto1
             this.PanelAloitusMokki.Controls.Add(this.btnMokinMuokkaus);
             this.PanelAloitusMokki.Controls.Add(this.btnMokinPoisto);
             this.PanelAloitusMokki.Controls.Add(this.PanelMokki);
+            this.PanelAloitusMokki.Controls.Add(this.PanelToimintaAlue);
             this.PanelAloitusMokki.Controls.Add(this.btnMokinLisays);
             this.PanelAloitusMokki.Controls.Add(this.btnValitseToimintaAlue);
             this.PanelAloitusMokki.Location = new System.Drawing.Point(246, 58);
@@ -151,162 +152,6 @@ namespace Ohjelmistotuotanto1
             this.btnMokinPoisto.TabIndex = 2;
             this.btnMokinPoisto.Text = "Poista mökki";
             this.btnMokinPoisto.Click += new System.EventHandler(this.btnMokinPoisto_Click);
-            // 
-            // btnMokinLisays
-            // 
-            this.btnMokinLisays.Location = new System.Drawing.Point(226, 20);
-            this.btnMokinLisays.Name = "btnMokinLisays";
-            this.btnMokinLisays.Size = new System.Drawing.Size(176, 74);
-            this.btnMokinLisays.TabIndex = 1;
-            this.btnMokinLisays.Text = "Lisää mökki";
-            this.btnMokinLisays.Click += new System.EventHandler(this.btnMokinLisays_Click);
-            // 
-            // btnValitseToimintaAlue
-            // 
-            this.btnValitseToimintaAlue.Location = new System.Drawing.Point(39, 20);
-            this.btnValitseToimintaAlue.Name = "btnValitseToimintaAlue";
-            this.btnValitseToimintaAlue.Size = new System.Drawing.Size(165, 74);
-            this.btnValitseToimintaAlue.TabIndex = 0;
-            this.btnValitseToimintaAlue.Text = "Toiminta-alueiden hallinta";
-            this.btnValitseToimintaAlue.Click += new System.EventHandler(this.btnValitseToimintaAlue_Click);
-            // 
-            // PanelToimintaAlue
-            // 
-            this.PanelToimintaAlue.Controls.Add(this.dataGridViewToimintaAlue);
-            this.PanelToimintaAlue.Controls.Add(this.label4);
-            this.PanelToimintaAlue.Controls.Add(this.tbToimintaAlueNimi);
-            this.PanelToimintaAlue.Controls.Add(this.btnLisaaToimintaAlue);
-            this.PanelToimintaAlue.Controls.Add(this.btnMuokkaaAluetta);
-            this.PanelToimintaAlue.Controls.Add(this.btnPoistaToimintaAlue);
-            this.PanelToimintaAlue.Controls.Add(this.lblAlueenNimi);
-            this.PanelToimintaAlue.Controls.Add(this.tbToimintaAlueID);
-            this.PanelToimintaAlue.Controls.Add(this.btnToimintaAlueMuokkaus);
-            this.PanelToimintaAlue.Location = new System.Drawing.Point(110, 635);
-            this.PanelToimintaAlue.Name = "PanelToimintaAlue";
-            this.PanelToimintaAlue.Size = new System.Drawing.Size(1080, 450);
-            this.PanelToimintaAlue.TabIndex = 8;
-            this.PanelToimintaAlue.Visible = false;
-            // 
-            // dataGridViewToimintaAlue
-            // 
-            this.dataGridViewToimintaAlue.AutoGenerateColumns = false;
-            this.dataGridViewToimintaAlue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewToimintaAlue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.toimintaalueidDataGridViewTextBoxColumn1,
-            this.nimiDataGridViewTextBoxColumn});
-            this.dataGridViewToimintaAlue.DataSource = this.toimintaalueBindingSource;
-            this.dataGridViewToimintaAlue.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewToimintaAlue.Location = new System.Drawing.Point(399, 46);
-            this.dataGridViewToimintaAlue.MultiSelect = false;
-            this.dataGridViewToimintaAlue.Name = "dataGridViewToimintaAlue";
-            this.dataGridViewToimintaAlue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewToimintaAlue.Size = new System.Drawing.Size(328, 180);
-            this.dataGridViewToimintaAlue.TabIndex = 21;
-            // 
-            // vnBindingSource
-            // 
-            this.vnBindingSource.DataSource = this.vn;
-            this.vnBindingSource.Position = 0;
-            // 
-            // vn
-            // 
-            this.vn.DataSetName = "vn";
-            this.vn.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // btnPalaa
-            // 
-            this.btnPalaa.Location = new System.Drawing.Point(1274, 635);
-            this.btnPalaa.Name = "btnPalaa";
-            this.btnPalaa.Size = new System.Drawing.Size(75, 23);
-            this.btnPalaa.TabIndex = 37;
-            this.btnPalaa.Text = "Palaa";
-            this.btnPalaa.UseVisualStyleBackColor = true;
-            this.btnPalaa.Click += new System.EventHandler(this.btnPalaa_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(29, 83);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 12);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "Valittu ID";
-            // 
-            // tbToimintaAlueNimi
-            // 
-            this.tbToimintaAlueNimi.Enabled = false;
-            this.tbToimintaAlueNimi.Location = new System.Drawing.Point(108, 46);
-            this.tbToimintaAlueNimi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbToimintaAlueNimi.MaxLength = 40;
-            this.tbToimintaAlueNimi.Name = "tbToimintaAlueNimi";
-            this.tbToimintaAlueNimi.Size = new System.Drawing.Size(186, 20);
-            this.tbToimintaAlueNimi.TabIndex = 20;
-            this.tbToimintaAlueNimi.Text = "Lisää tai muokkaa alueen nimeä";
-            // 
-            // btnLisaaToimintaAlue
-            // 
-            this.btnLisaaToimintaAlue.Enabled = false;
-            this.btnLisaaToimintaAlue.Location = new System.Drawing.Point(300, 45);
-            this.btnLisaaToimintaAlue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnLisaaToimintaAlue.Name = "btnLisaaToimintaAlue";
-            this.btnLisaaToimintaAlue.Size = new System.Drawing.Size(72, 25);
-            this.btnLisaaToimintaAlue.TabIndex = 22;
-            this.btnLisaaToimintaAlue.Text = "Lisää";
-            this.btnLisaaToimintaAlue.UseVisualStyleBackColor = true;
-            this.btnLisaaToimintaAlue.Click += new System.EventHandler(this.btnLisaaToimintaAlue_Click);
-            // 
-            // btnMuokkaaAluetta
-            // 
-            this.btnMuokkaaAluetta.Enabled = false;
-            this.btnMuokkaaAluetta.Location = new System.Drawing.Point(300, 78);
-            this.btnMuokkaaAluetta.Name = "btnMuokkaaAluetta";
-            this.btnMuokkaaAluetta.Size = new System.Drawing.Size(72, 23);
-            this.btnMuokkaaAluetta.TabIndex = 33;
-            this.btnMuokkaaAluetta.Text = "Muokkaa";
-            this.btnMuokkaaAluetta.UseVisualStyleBackColor = true;
-            this.btnMuokkaaAluetta.Click += new System.EventHandler(this.btnMuokkaaAluetta_Click);
-            // 
-            // btnPoistaToimintaAlue
-            // 
-            this.btnPoistaToimintaAlue.Enabled = false;
-            this.btnPoistaToimintaAlue.Location = new System.Drawing.Point(300, 106);
-            this.btnPoistaToimintaAlue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnPoistaToimintaAlue.Name = "btnPoistaToimintaAlue";
-            this.btnPoistaToimintaAlue.Size = new System.Drawing.Size(72, 25);
-            this.btnPoistaToimintaAlue.TabIndex = 23;
-            this.btnPoistaToimintaAlue.Text = "Poista";
-            this.btnPoistaToimintaAlue.UseVisualStyleBackColor = true;
-            this.btnPoistaToimintaAlue.Click += new System.EventHandler(this.btnPoistaToimintaAlue_Click);
-            // 
-            // lblAlueenNimi
-            // 
-            this.lblAlueenNimi.AutoSize = true;
-            this.lblAlueenNimi.Enabled = false;
-            this.lblAlueenNimi.Location = new System.Drawing.Point(29, 51);
-            this.lblAlueenNimi.Name = "lblAlueenNimi";
-            this.lblAlueenNimi.Size = new System.Drawing.Size(73, 12);
-            this.lblAlueenNimi.TabIndex = 32;
-            this.lblAlueenNimi.Text = "Alueen nimi:";
-            // 
-            // tbToimintaAlueID
-            // 
-            this.tbToimintaAlueID.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.toimintaalueBindingSource, "toimintaalue_id", true));
-            this.tbToimintaAlueID.Enabled = false;
-            this.tbToimintaAlueID.Location = new System.Drawing.Point(105, 80);
-            this.tbToimintaAlueID.Name = "tbToimintaAlueID";
-            this.tbToimintaAlueID.ReadOnly = true;
-            this.tbToimintaAlueID.Size = new System.Drawing.Size(31, 20);
-            this.tbToimintaAlueID.TabIndex = 26;
-            // 
-            // btnToimintaAlueMuokkaus
-            // 
-            this.btnToimintaAlueMuokkaus.Location = new System.Drawing.Point(31, 18);
-            this.btnToimintaAlueMuokkaus.Name = "btnToimintaAlueMuokkaus";
-            this.btnToimintaAlueMuokkaus.Size = new System.Drawing.Size(123, 23);
-            this.btnToimintaAlueMuokkaus.TabIndex = 30;
-            this.btnToimintaAlueMuokkaus.Text = "Hallitse alueita";
-            this.btnToimintaAlueMuokkaus.UseVisualStyleBackColor = true;
-            this.btnToimintaAlueMuokkaus.Click += new System.EventHandler(this.btnToimintaAlueMuokkaus_Click);
             // 
             // PanelMokki
             // 
@@ -340,6 +185,41 @@ namespace Ohjelmistotuotanto1
             this.PanelMokki.Size = new System.Drawing.Size(1103, 450);
             this.PanelMokki.TabIndex = 6;
             this.PanelMokki.Visible = false;
+            // 
+            // lblToimintaAlue
+            // 
+            this.lblToimintaAlue.AutoSize = true;
+            this.lblToimintaAlue.Location = new System.Drawing.Point(17, 18);
+            this.lblToimintaAlue.Name = "lblToimintaAlue";
+            this.lblToimintaAlue.Size = new System.Drawing.Size(81, 12);
+            this.lblToimintaAlue.TabIndex = 38;
+            this.lblToimintaAlue.Text = "Toiminta-alue";
+            // 
+            // cbToimintaAlueMokille
+            // 
+            this.cbToimintaAlueMokille.DataSource = this.toimintaalueBindingSource1;
+            this.cbToimintaAlueMokille.DisplayMember = "nimi";
+            this.cbToimintaAlueMokille.FormattingEnabled = true;
+            this.cbToimintaAlueMokille.Location = new System.Drawing.Point(105, 15);
+            this.cbToimintaAlueMokille.Name = "cbToimintaAlueMokille";
+            this.cbToimintaAlueMokille.Size = new System.Drawing.Size(176, 20);
+            this.cbToimintaAlueMokille.TabIndex = 37;
+            this.cbToimintaAlueMokille.ValueMember = "toimintaalue_id";
+            // 
+            // toimintaalueBindingSource1
+            // 
+            this.toimintaalueBindingSource1.DataMember = "toimintaalue";
+            this.toimintaalueBindingSource1.DataSource = this.vnBindingSource;
+            // 
+            // vnBindingSource
+            // 
+            this.vnBindingSource.DataSource = this.vn;
+            this.vnBindingSource.Position = 0;
+            // 
+            // vn
+            // 
+            this.vn.DataSetName = "vn";
+            this.vn.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // lblMokinHinta
             // 
@@ -626,6 +506,170 @@ namespace Ohjelmistotuotanto1
             this.btnLisaaMokki.Visible = false;
             this.btnLisaaMokki.Click += new System.EventHandler(this.btnLisaa_Click);
             // 
+            // btnMokinLisays
+            // 
+            this.btnMokinLisays.Location = new System.Drawing.Point(226, 20);
+            this.btnMokinLisays.Name = "btnMokinLisays";
+            this.btnMokinLisays.Size = new System.Drawing.Size(176, 74);
+            this.btnMokinLisays.TabIndex = 1;
+            this.btnMokinLisays.Text = "Lisää mökki";
+            this.btnMokinLisays.Click += new System.EventHandler(this.btnMokinLisays_Click);
+            // 
+            // btnValitseToimintaAlue
+            // 
+            this.btnValitseToimintaAlue.Location = new System.Drawing.Point(39, 20);
+            this.btnValitseToimintaAlue.Name = "btnValitseToimintaAlue";
+            this.btnValitseToimintaAlue.Size = new System.Drawing.Size(165, 74);
+            this.btnValitseToimintaAlue.TabIndex = 0;
+            this.btnValitseToimintaAlue.Text = "Toiminta-alueiden hallinta";
+            this.btnValitseToimintaAlue.Click += new System.EventHandler(this.btnValitseToimintaAlue_Click);
+            // 
+            // PanelToimintaAlue
+            // 
+            this.PanelToimintaAlue.Controls.Add(this.dataGridViewToimintaAlue);
+            this.PanelToimintaAlue.Controls.Add(this.label4);
+            this.PanelToimintaAlue.Controls.Add(this.tbToimintaAlueNimi);
+            this.PanelToimintaAlue.Controls.Add(this.btnLisaaToimintaAlue);
+            this.PanelToimintaAlue.Controls.Add(this.btnMuokkaaAluetta);
+            this.PanelToimintaAlue.Controls.Add(this.btnPoistaToimintaAlue);
+            this.PanelToimintaAlue.Controls.Add(this.lblAlueenNimi);
+            this.PanelToimintaAlue.Controls.Add(this.tbToimintaAlueID);
+            this.PanelToimintaAlue.Controls.Add(this.btnToimintaAlueMuokkaus);
+            this.PanelToimintaAlue.Location = new System.Drawing.Point(6, 96);
+            this.PanelToimintaAlue.Name = "PanelToimintaAlue";
+            this.PanelToimintaAlue.Size = new System.Drawing.Size(1080, 450);
+            this.PanelToimintaAlue.TabIndex = 8;
+            this.PanelToimintaAlue.Visible = false;
+            // 
+            // dataGridViewToimintaAlue
+            // 
+            this.dataGridViewToimintaAlue.AutoGenerateColumns = false;
+            this.dataGridViewToimintaAlue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewToimintaAlue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.toimintaalueidDataGridViewTextBoxColumn1,
+            this.nimiDataGridViewTextBoxColumn});
+            this.dataGridViewToimintaAlue.DataSource = this.toimintaalueBindingSource;
+            this.dataGridViewToimintaAlue.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewToimintaAlue.Location = new System.Drawing.Point(399, 46);
+            this.dataGridViewToimintaAlue.MultiSelect = false;
+            this.dataGridViewToimintaAlue.Name = "dataGridViewToimintaAlue";
+            this.dataGridViewToimintaAlue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewToimintaAlue.Size = new System.Drawing.Size(328, 180);
+            this.dataGridViewToimintaAlue.TabIndex = 21;
+            // 
+            // toimintaalueidDataGridViewTextBoxColumn1
+            // 
+            this.toimintaalueidDataGridViewTextBoxColumn1.DataPropertyName = "toimintaalue_id";
+            this.toimintaalueidDataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.toimintaalueidDataGridViewTextBoxColumn1.Name = "toimintaalueidDataGridViewTextBoxColumn1";
+            // 
+            // nimiDataGridViewTextBoxColumn
+            // 
+            this.nimiDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nimiDataGridViewTextBoxColumn.DataPropertyName = "nimi";
+            this.nimiDataGridViewTextBoxColumn.HeaderText = "Nimi";
+            this.nimiDataGridViewTextBoxColumn.Name = "nimiDataGridViewTextBoxColumn";
+            // 
+            // toimintaalueBindingSource
+            // 
+            this.toimintaalueBindingSource.DataMember = "toimintaalue";
+            this.toimintaalueBindingSource.DataSource = this.vnBindingSource;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(29, 83);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 12);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "Valittu ID";
+            // 
+            // tbToimintaAlueNimi
+            // 
+            this.tbToimintaAlueNimi.Enabled = false;
+            this.tbToimintaAlueNimi.Location = new System.Drawing.Point(108, 46);
+            this.tbToimintaAlueNimi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbToimintaAlueNimi.MaxLength = 40;
+            this.tbToimintaAlueNimi.Name = "tbToimintaAlueNimi";
+            this.tbToimintaAlueNimi.Size = new System.Drawing.Size(186, 20);
+            this.tbToimintaAlueNimi.TabIndex = 20;
+            this.tbToimintaAlueNimi.Text = "Lisää tai muokkaa alueen nimeä";
+            // 
+            // btnLisaaToimintaAlue
+            // 
+            this.btnLisaaToimintaAlue.Enabled = false;
+            this.btnLisaaToimintaAlue.Location = new System.Drawing.Point(300, 45);
+            this.btnLisaaToimintaAlue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnLisaaToimintaAlue.Name = "btnLisaaToimintaAlue";
+            this.btnLisaaToimintaAlue.Size = new System.Drawing.Size(72, 25);
+            this.btnLisaaToimintaAlue.TabIndex = 22;
+            this.btnLisaaToimintaAlue.Text = "Lisää";
+            this.btnLisaaToimintaAlue.UseVisualStyleBackColor = true;
+            this.btnLisaaToimintaAlue.Click += new System.EventHandler(this.btnLisaaToimintaAlue_Click);
+            // 
+            // btnMuokkaaAluetta
+            // 
+            this.btnMuokkaaAluetta.Enabled = false;
+            this.btnMuokkaaAluetta.Location = new System.Drawing.Point(300, 78);
+            this.btnMuokkaaAluetta.Name = "btnMuokkaaAluetta";
+            this.btnMuokkaaAluetta.Size = new System.Drawing.Size(72, 23);
+            this.btnMuokkaaAluetta.TabIndex = 33;
+            this.btnMuokkaaAluetta.Text = "Muokkaa";
+            this.btnMuokkaaAluetta.UseVisualStyleBackColor = true;
+            this.btnMuokkaaAluetta.Click += new System.EventHandler(this.btnMuokkaaAluetta_Click);
+            // 
+            // btnPoistaToimintaAlue
+            // 
+            this.btnPoistaToimintaAlue.Enabled = false;
+            this.btnPoistaToimintaAlue.Location = new System.Drawing.Point(300, 106);
+            this.btnPoistaToimintaAlue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPoistaToimintaAlue.Name = "btnPoistaToimintaAlue";
+            this.btnPoistaToimintaAlue.Size = new System.Drawing.Size(72, 25);
+            this.btnPoistaToimintaAlue.TabIndex = 23;
+            this.btnPoistaToimintaAlue.Text = "Poista";
+            this.btnPoistaToimintaAlue.UseVisualStyleBackColor = true;
+            this.btnPoistaToimintaAlue.Click += new System.EventHandler(this.btnPoistaToimintaAlue_Click);
+            // 
+            // lblAlueenNimi
+            // 
+            this.lblAlueenNimi.AutoSize = true;
+            this.lblAlueenNimi.Enabled = false;
+            this.lblAlueenNimi.Location = new System.Drawing.Point(29, 51);
+            this.lblAlueenNimi.Name = "lblAlueenNimi";
+            this.lblAlueenNimi.Size = new System.Drawing.Size(73, 12);
+            this.lblAlueenNimi.TabIndex = 32;
+            this.lblAlueenNimi.Text = "Alueen nimi:";
+            // 
+            // tbToimintaAlueID
+            // 
+            this.tbToimintaAlueID.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.toimintaalueBindingSource, "toimintaalue_id", true));
+            this.tbToimintaAlueID.Enabled = false;
+            this.tbToimintaAlueID.Location = new System.Drawing.Point(105, 80);
+            this.tbToimintaAlueID.Name = "tbToimintaAlueID";
+            this.tbToimintaAlueID.ReadOnly = true;
+            this.tbToimintaAlueID.Size = new System.Drawing.Size(31, 20);
+            this.tbToimintaAlueID.TabIndex = 26;
+            // 
+            // btnToimintaAlueMuokkaus
+            // 
+            this.btnToimintaAlueMuokkaus.Location = new System.Drawing.Point(31, 18);
+            this.btnToimintaAlueMuokkaus.Name = "btnToimintaAlueMuokkaus";
+            this.btnToimintaAlueMuokkaus.Size = new System.Drawing.Size(123, 23);
+            this.btnToimintaAlueMuokkaus.TabIndex = 30;
+            this.btnToimintaAlueMuokkaus.Text = "Hallitse alueita";
+            this.btnToimintaAlueMuokkaus.UseVisualStyleBackColor = true;
+            this.btnToimintaAlueMuokkaus.Click += new System.EventHandler(this.btnToimintaAlueMuokkaus_Click);
+            // 
+            // btnPalaa
+            // 
+            this.btnPalaa.Location = new System.Drawing.Point(1274, 635);
+            this.btnPalaa.Name = "btnPalaa";
+            this.btnPalaa.Size = new System.Drawing.Size(75, 23);
+            this.btnPalaa.TabIndex = 37;
+            this.btnPalaa.Text = "Palaa";
+            this.btnPalaa.UseVisualStyleBackColor = true;
+            this.btnPalaa.Click += new System.EventHandler(this.btnPalaa_Click);
+            // 
             // LaskutBtn
             // 
             this.LaskutBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -704,49 +748,6 @@ namespace Ohjelmistotuotanto1
             // 
             this.toimintaalueTableAdapter.ClearBeforeFill = true;
             // 
-            // toimintaalueBindingSource
-            // 
-            this.toimintaalueBindingSource.DataMember = "toimintaalue";
-            this.toimintaalueBindingSource.DataSource = this.vnBindingSource;
-            // 
-            // cbToimintaAlueMokille
-            // 
-            this.cbToimintaAlueMokille.DataSource = this.toimintaalueBindingSource1;
-            this.cbToimintaAlueMokille.DisplayMember = "nimi";
-            this.cbToimintaAlueMokille.FormattingEnabled = true;
-            this.cbToimintaAlueMokille.Location = new System.Drawing.Point(105, 15);
-            this.cbToimintaAlueMokille.Name = "cbToimintaAlueMokille";
-            this.cbToimintaAlueMokille.Size = new System.Drawing.Size(176, 20);
-            this.cbToimintaAlueMokille.TabIndex = 37;
-            this.cbToimintaAlueMokille.ValueMember = "toimintaalue_id";
-            // 
-            // toimintaalueBindingSource1
-            // 
-            this.toimintaalueBindingSource1.DataMember = "toimintaalue";
-            this.toimintaalueBindingSource1.DataSource = this.vnBindingSource;
-            // 
-            // lblToimintaAlue
-            // 
-            this.lblToimintaAlue.AutoSize = true;
-            this.lblToimintaAlue.Location = new System.Drawing.Point(17, 18);
-            this.lblToimintaAlue.Name = "lblToimintaAlue";
-            this.lblToimintaAlue.Size = new System.Drawing.Size(81, 12);
-            this.lblToimintaAlue.TabIndex = 38;
-            this.lblToimintaAlue.Text = "Toiminta-alue";
-            // 
-            // toimintaalueidDataGridViewTextBoxColumn1
-            // 
-            this.toimintaalueidDataGridViewTextBoxColumn1.DataPropertyName = "toimintaalue_id";
-            this.toimintaalueidDataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.toimintaalueidDataGridViewTextBoxColumn1.Name = "toimintaalueidDataGridViewTextBoxColumn1";
-            // 
-            // nimiDataGridViewTextBoxColumn
-            // 
-            this.nimiDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nimiDataGridViewTextBoxColumn.DataPropertyName = "nimi";
-            this.nimiDataGridViewTextBoxColumn.HeaderText = "Nimi";
-            this.nimiDataGridViewTextBoxColumn.Name = "nimiDataGridViewTextBoxColumn";
-            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -755,7 +756,6 @@ namespace Ohjelmistotuotanto1
             this.Controls.Add(this.PanelAloitusMokki);
             this.Controls.Add(this.btnPalaa);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.PanelToimintaAlue);
             this.Controls.Add(this.ParentPanel);
             this.Controls.Add(this.LaskutBtn);
             this.Controls.Add(this.AsiakkaatBtn);
@@ -770,20 +770,20 @@ namespace Ohjelmistotuotanto1
             this.Text = "Varaus";
             this.Load += new System.EventHandler(this.Form_Load);
             this.PanelAloitusMokki.ResumeLayout(false);
-            this.PanelToimintaAlue.ResumeLayout(false);
-            this.PanelToimintaAlue.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewToimintaAlue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vnBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vn)).EndInit();
             this.PanelMokki.ResumeLayout(false);
             this.PanelMokki.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toimintaalueBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vnBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.postiBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMokki)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mokkiBindingSource)).EndInit();
+            this.PanelToimintaAlue.ResumeLayout(false);
+            this.PanelToimintaAlue.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewToimintaAlue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toimintaalueBindingSource)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.toimintaalueBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toimintaalueBindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
