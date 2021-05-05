@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Ohjelmistotuotanto1
 {
     public partial class Form : System.Windows.Forms.Form
     {
+        public class vakiot
+        {
+            public const double ALV = 0.1;
+        }
+
         #region Form Load
         public Form()
         {
@@ -20,10 +17,14 @@ namespace Ohjelmistotuotanto1
 
         private void Form_Load(object sender, EventArgs e)
         {
-            this.postiTableAdapter.Fill(this.vnDataSet.posti);
+
+            this.postiTableAdapter.Fill(this.vn.posti);
+            this.mokkiTableAdapter.Fill(this.vn.mokki);
             cbPostiNro.SelectedItem = null;
-            this.mokkiTableAdapter.Fill(this.vnDataSet.mokki);
-            this.toimintaalueTableAdapter.Fill(this.vnDataSet.toimintaalue);
+            this.mokkiTableAdapter.Fill(this.vn.mokki);
+            this.mokkiBindingSource.Sort = "toimintaalue_id ASC, henkilomaara ASC";
+            this.toimintaalueBindingSource.Sort = "toimintaalue_id ASC";
+            this.toimintaalueTableAdapter.Fill(this.vn.toimintaalue);
         }
         #endregion
 
@@ -41,6 +42,11 @@ namespace Ohjelmistotuotanto1
         private void MokitBtn_Click(object sender, EventArgs e)
         {
             this.Text = "Mökit";
+            PanelAloitusMokki.Visible = true;
+            dataGridViewMokki.CurrentCell = null;
+            dataGridViewToimintaAlue.CurrentCell = null;
+            PoistaMokinPainikkeetNakyvista();
+
         }
 
         //PalvelutBtn toiminnallisuus
@@ -65,6 +71,65 @@ namespace Ohjelmistotuotanto1
         }
         #endregion
 
+        #region Mökin aloitusvalikko
+
+        private void btnValitseToimintaAlue_Click(object sender, EventArgs e)
+        {
+            PoistaMokkiPanelitNakyvista();
+            PanelToimintaAlue.Visible = true;
+            dataGridViewToimintaAlue.CurrentCell = null;
+        }
+
+        private void btnMokinLisays_Click(object sender, EventArgs e)
+        {
+            PoistaMokkiPanelitNakyvista();
+            PoistaMokinPainikkeetNakyvista();
+            MokkiKenttienTyhjennys();
+            PanelMokki.Visible = true;
+            dataGridViewMokki.CurrentCell = null;
+            btnLisaaMokki.Visible = true;
+        }
+
+        private void btnMokinPoisto_Click(object sender, EventArgs e)
+        {
+            PoistaMokkiPanelitNakyvista();
+            PoistaMokinPainikkeetNakyvista();
+            MokkiKenttienTyhjennys();
+            PanelMokki.Visible = true;
+            btnPoistaMokki.Visible = true;
+            btnHaeMokki.Visible = true;
+        }
+
+        private void btnMokinMuokkaus_Click(object sender, EventArgs e)
+        {
+            PoistaMokkiPanelitNakyvista();
+            PoistaMokinPainikkeetNakyvista();
+            MokkiKenttienTyhjennys();
+            PanelMokki.Visible = true;
+            btnMuokkaaMokkia.Visible = true;
+            btnHaeMokki.Visible = true;
+        }
+
+        private void PoistaMokkiPanelitNakyvista()
+        {
+            dataGridViewMokki.CurrentCell = null;
+            dataGridViewToimintaAlue.CurrentCell = null;
+            PanelToimintaAlue.Visible = false;
+            PanelMokki.Visible = false;
+        }
+
+        private void PoistaMokinPainikkeetNakyvista()
+        {
+            dataGridViewMokki.CurrentCell = null;
+            dataGridViewToimintaAlue.CurrentCell = null;
+            btnPoistaMokki.Visible = false;
+            btnMuokkaaMokkia.Visible = false;
+            btnLisaaMokki.Visible = false;
+            btnHaeMokki.Visible = false;
+        }
+
+        #endregion
+
         #region Mokin hallinta
 
         //Uuden mökin lisääminen
@@ -72,40 +137,53 @@ namespace Ohjelmistotuotanto1
         {
             Validate();
             mokkiBindingSource.EndEdit();
-            mokkiTableAdapter.Update(this.vnDataSet);
+            mokkiTableAdapter.Update(this.vn);
+            double mokinHinta = double.Parse(tbMokinHinta.Text);
+            double mokinAlv = mokinHinta * vakiot.ALV;
             mokkiTableAdapter.Insert(
-                long.Parse(tbToimintaAlueID.Text), 
+                long.Parse(cbToimintaAlueMokille.SelectedValue.ToString()), 
                 cbPostiNro.Text, 
                 tbMokkinimi.Text, 
                 tbKatuosoite.Text, 
                 tbKuvaus.Text, 
                 int.Parse(cbHenkilomaara.Text), 
-                tbVarustelu.Text);
+                tbVarustelu.Text, 
+                mokinHinta, 
+                mokinAlv);
 
             Validate();
-            mokkiTableAdapter.Update(this.vnDataSet.mokki);
+            mokkiTableAdapter.Update(this.vn.mokki);
 
             //kenttien tyhjennys
+            MokkiKenttienTyhjennys();
+
+            this.mokkiTableAdapter.Fill(vn.mokki);
+        }
+
+        private void btnPoistaMokki_Click(object sender, EventArgs e)
+        {
+            Validate();
+            toimintaalueBindingSource.EndEdit();
+            toimintaalueTableAdapter.Update(this.vn);
+            vn.mokki.Rows[this.dataGridViewMokki.SelectedRows[0].Index].Delete();
+
+            Validate();
+            mokkiTableAdapter.Update(this.vn.mokki);
+            this.mokkiTableAdapter.Fill(vn.mokki);
+            MokkiKenttienTyhjennys();
+        }
+
+        private void MokkiKenttienTyhjennys()
+        {
+            dataGridViewMokki.CurrentCell = null;
             tbMokkinimi.Text = string.Empty;
             tbKatuosoite.Text = string.Empty;
             tbKuvaus.Text = string.Empty;
             cbHenkilomaara.SelectedItem = null;
             tbVarustelu.Text = string.Empty;
             cbPostiNro.SelectedItem = null;
-
-            this.mokkiTableAdapter.Fill(vnDataSet.mokki);
-        }
-        
-        private void btnPoistaMokki_Click(object sender, EventArgs e)
-        {
-            Validate();
-            toimintaalueBindingSource.EndEdit();
-            toimintaalueTableAdapter.Update(this.vnDataSet);
-            vnDataSet.mokki.Rows[this.dataGridViewMokki.SelectedRows[0].Index].Delete();
-
-            Validate();
-            mokkiTableAdapter.Update(this.vnDataSet.mokki);
-            this.mokkiTableAdapter.Fill(vnDataSet.mokki);
+            tbMokinHinta.Text = string.Empty;
+            dataGridViewMokki.CurrentCell = null;
         }
 
         #endregion
@@ -123,9 +201,9 @@ namespace Ohjelmistotuotanto1
         {
             Validate();
             toimintaalueBindingSource.EndEdit();
-            toimintaalueTableAdapter.Update(this.vnDataSet);
+            toimintaalueTableAdapter.Update(this.vn);
             toimintaalueTableAdapter.Insert(tbToimintaAlueNimi.Text);
-            this.toimintaalueTableAdapter.Fill(this.vnDataSet.toimintaalue);
+            this.toimintaalueTableAdapter.Fill(this.vn.toimintaalue);
 
             ToimintaAlueMuokkausEnable();
         }
@@ -135,14 +213,14 @@ namespace Ohjelmistotuotanto1
         {
             Validate();
             toimintaalueBindingSource.EndEdit();
-            toimintaalueTableAdapter.Update(this.vnDataSet);
+            toimintaalueTableAdapter.Update(this.vn);
             //Muuttaa taulukosta valitun toiminta-alueen nimen.
-            vnDataSet.toimintaalueRow toimintaalueRow = vnDataSet.toimintaalue.FindBytoimintaalue_id(long.Parse(tbToimintaAlueID.Text));
+            vn.toimintaalueRow toimintaalueRow = vn.toimintaalue.FindBytoimintaalue_id(long.Parse(tbToimintaAlueID.Text));
             toimintaalueRow.nimi = tbToimintaAlueNimi.Text;
 
             Validate();
-            toimintaalueTableAdapter.Update(this.vnDataSet);
-            this.toimintaalueTableAdapter.Fill(this.vnDataSet.toimintaalue);
+            toimintaalueTableAdapter.Update(this.vn);
+            this.toimintaalueTableAdapter.Fill(this.vn.toimintaalue);
 
             ToimintaAlueMuokkausEnable();
         }
@@ -152,14 +230,14 @@ namespace Ohjelmistotuotanto1
         {
             Validate();
             toimintaalueBindingSource.EndEdit();
-            toimintaalueTableAdapter.Update(this.vnDataSet);
+            toimintaalueTableAdapter.Update(this.vn);
 
-            vnDataSet.toimintaalueRow toimintaalueRow = vnDataSet.toimintaalue.FindBytoimintaalue_id(long.Parse(tbToimintaAlueID.Text));
+            vn.toimintaalueRow toimintaalueRow = vn.toimintaalue.FindBytoimintaalue_id(long.Parse(tbToimintaAlueID.Text));
             toimintaalueTableAdapter.Delete(toimintaalueRow.toimintaalue_id, toimintaalueRow.nimi);
             Validate();
-            toimintaalueTableAdapter.Update(this.vnDataSet);
+            toimintaalueTableAdapter.Update(this.vn);
 
-            this.toimintaalueTableAdapter.Fill(this.vnDataSet.toimintaalue);
+            this.toimintaalueTableAdapter.Fill(this.vn.toimintaalue);
 
             ToimintaAlueMuokkausEnable();
         }
@@ -167,30 +245,36 @@ namespace Ohjelmistotuotanto1
         //lisää tai poistaa näkyviltä alueen poisto ja lisäyspainikkeet
         private void ToimintaAlueMuokkausEnable()
         {
-            if (btnToimintaAlueMuokkaus.Text == "Lisää tai poista")
+            if (btnToimintaAlueMuokkaus.Text == "Hallitse alueita")
             {
+                dataGridViewToimintaAlue.CurrentCell = null;
                 lblAlueenNimi.Enabled = true;
-                lblValitseListasta.Enabled = true;
                 btnLisaaToimintaAlue.Enabled = true;
-                btnToimintaAlueMuokkaus.Enabled = true;
                 btnPoistaToimintaAlue.Enabled = true;
+                btnMuokkaaAluetta.Enabled = true;
                 tbToimintaAlueNimi.Enabled = true;
                 btnToimintaAlueMuokkaus.Text = "Peruuta";
 
             }
             else if (btnToimintaAlueMuokkaus.Text == "Peruuta")
             {
+                dataGridViewToimintaAlue.CurrentCell = null;
                 lblAlueenNimi.Enabled = false;
-                lblValitseListasta.Enabled = false;
                 btnLisaaToimintaAlue.Enabled = false;
-                btnToimintaAlueMuokkaus.Enabled = false;
                 btnPoistaToimintaAlue.Enabled = false;
+                btnMuokkaaAluetta.Enabled = false;
                 tbToimintaAlueNimi.Enabled = false;
-                btnToimintaAlueMuokkaus.Text = "Lisää tai poista";
+                btnToimintaAlueMuokkaus.Text = "Hallitse alueita";
                 tbToimintaAlueNimi.Text = string.Empty;
             }
         }
 
         #endregion
+
+        private void btnPalaa_Click(object sender, EventArgs e)
+        {
+            PoistaMokkiPanelitNakyvista();
+            PoistaMokinPainikkeetNakyvista();
+        }
     }
 }
