@@ -276,5 +276,17 @@ namespace Ohjelmistotuotanto1
             PoistaMokkiPanelitNakyvista();
             PoistaMokinPainikkeetNakyvista();
         }
+
+        private void btnHaeMokki_Click(object sender, EventArgs e)
+        {
+            Validate();
+            mokkiBindingSource.EndEdit();
+            mokkiTableAdapter.Update(this.vn);
+
+            //this.mokkiBindingSource.Filter.(cbPostiNro.Text);
+
+            mokkiTableAdapter.Fill(this.vn.mokki);
+
+        }
     }
 }
