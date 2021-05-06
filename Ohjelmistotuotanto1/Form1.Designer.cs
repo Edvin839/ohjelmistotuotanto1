@@ -92,6 +92,7 @@ namespace Ohjelmistotuotanto1
             this.lahiosoiteDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.postinroDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.emailDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblPostiKaupunki = new System.Windows.Forms.Label();
             this.CbtnLisaaAsiakas = new Ohjelmistotuotanto1.CustomButton();
             this.CbtnPoistaAsiakas = new Ohjelmistotuotanto1.CustomButton();
             this.CbtnMuokkaaAsiakas = new Ohjelmistotuotanto1.CustomButton();
@@ -145,6 +146,7 @@ namespace Ohjelmistotuotanto1
             // 
             // PanelLisaaAsiakas
             // 
+            this.PanelLisaaAsiakas.Controls.Add(this.lblPostiKaupunki);
             this.PanelLisaaAsiakas.Controls.Add(this.cbPostinro);
             this.PanelLisaaAsiakas.Controls.Add(this.label9);
             this.PanelLisaaAsiakas.Controls.Add(this.btnPalaaAsiakasHallintaan);
@@ -170,15 +172,16 @@ namespace Ohjelmistotuotanto1
             // 
             this.cbPostinro.FormattingEnabled = true;
             this.cbPostinro.Items.AddRange(new object[] {
-            "00100 HELSINKI",
-            "70100 KUOPIO",
-            "73310 TAHKOVUORI",
-            "92600 KUUSAMO",
-            "95970 ÄKÄSLOMPOLO"});
+            "00100",
+            "70100",
+            "73310",
+            "92600",
+            "95970"});
             this.cbPostinro.Location = new System.Drawing.Point(182, 188);
             this.cbPostinro.Name = "cbPostinro";
             this.cbPostinro.Size = new System.Drawing.Size(193, 27);
             this.cbPostinro.TabIndex = 15;
+            this.cbPostinro.SelectedIndexChanged += new System.EventHandler(this.cbPostinro_SelectedIndexChanged);
             // 
             // label9
             // 
@@ -698,6 +701,14 @@ namespace Ohjelmistotuotanto1
             this.emailDataGridViewTextBoxColumn1.Name = "emailDataGridViewTextBoxColumn1";
             this.emailDataGridViewTextBoxColumn1.Width = 125;
             // 
+            // lblPostiKaupunki
+            // 
+            this.lblPostiKaupunki.AutoSize = true;
+            this.lblPostiKaupunki.Location = new System.Drawing.Point(397, 191);
+            this.lblPostiKaupunki.Name = "lblPostiKaupunki";
+            this.lblPostiKaupunki.Size = new System.Drawing.Size(0, 19);
+            this.lblPostiKaupunki.TabIndex = 16;
+            // 
             // CbtnLisaaAsiakas
             // 
             this.CbtnLisaaAsiakas.Location = new System.Drawing.Point(93, 183);
@@ -892,6 +903,7 @@ namespace Ohjelmistotuotanto1
         private System.Windows.Forms.DataGridViewTextBoxColumn lahiosoiteDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn postinroDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn emailDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.Label lblPostiKaupunki;
     }
 }
 

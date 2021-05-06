@@ -64,6 +64,7 @@ namespace Ohjelmistotuotanto1
 
         //Asiakashallinta
 
+        //Paneelien näkyvyys:
         private void CbtnLisaaAsiakas_Click(object sender, EventArgs e)
         {
             AloitusPaneeli.Visible = false;
@@ -120,25 +121,25 @@ namespace Ohjelmistotuotanto1
 
         //Lisää tietoja
         private void btnTallennaUusiAsiakas_Click(object sender, EventArgs e)
-        {
-           
+        {           
             Validate();
             asiakasBindingSource.EndEdit();
             AsiakasTableAdapter.Update(this.vnDataSet);
-            AsiakasTableAdapter.Insert(tbEtunimi.Text, tbSukunimi.Text, tbEmail.Text, tbLahiosoite.Text, tbPuhelinnro.Text);
+            AsiakasTableAdapter.Insert(cbPostinro.Text, tbEtunimi.Text, tbSukunimi.Text, tbLahiosoite.Text, tbEmail.Text,tbPuhelinnro.Text);
             AsiakasTableAdapter.Fill(vnDataSet.asiakas);
-        
-            /*
-            Asiakkaat Uusiasiakas = new Asiakkaat(); //Asiakkaat luokan olio
-            Uusiasiakas.etunimi = tbEtunimi.Text;
-            Uusiasiakas.sukunimi = tbSukunimi.Text;
-            Uusiasiakas.lahiosoite = tbLahiosoite.Text;
-            Uusiasiakas.puhelinnro = tbPuhelinnro.Text;
-            Uusiasiakas.email = tbEmail.Text;
-            Uusiasiakas.postinnro = char.ToString(cbPostinro.SelectedItem);
-            */
+                    
         }
-       
+
+        private void cbPostinro_SelectedIndexChanged(object sender, EventArgs e)
+        {   //Postinumero on valittu, näytetään labelissa kaupunki
+            List<string> postinumerot = new List<string>();
+            postinumerot.Add("HELSINKI");
+            postinumerot.Add("KUOPIO");
+            postinumerot.Add("KUUSAMO");
+            postinumerot.Add("ÄKÄSLOMPOLO");
+            postinumerot.Add("TAHKOVUORI");
+            lblPostiKaupunki.Text = postinumerot[cbPostinro.SelectedIndex];
+        }
 
         //Muokkaa Tietoja
         private void BtnMuokkaaAsiakkaanTietoja_Click(object sender, EventArgs e)
@@ -202,5 +203,6 @@ namespace Ohjelmistotuotanto1
 
         }
 
+        
     }     
 }
