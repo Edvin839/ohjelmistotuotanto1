@@ -64,7 +64,7 @@ namespace Ohjelmistotuotanto1
 
         //Asiakashallinta
 
-        //Paneelien näkyvyys:
+        //Asiakas paneelien näkyvyys:
         private void CbtnLisaaAsiakas_Click(object sender, EventArgs e)
         {
             AloitusPaneeli.Visible = false;
@@ -127,11 +127,19 @@ namespace Ohjelmistotuotanto1
             AsiakasTableAdapter.Insert(cbPostinro.Text, tbEtunimi.Text, tbSukunimi.Text, tbLahiosoite.Text, tbEmail.Text,tbPuhelinnro.Text);
             AsiakasTableAdapter.Fill(vnDataSet.asiakas);
 
-            MessageBox.Show("Tiedot tallennettu onnistuneesti!");                    
+            MessageBox.Show("Tiedot tallennettu onnistuneesti!");
+
+            tbEtunimi.Text = "";
+            tbSukunimi.Text = "";
+            tbLahiosoite.Text = "";
+            tbPuhelinnro.Text = "";
+            tbEmail.Text = "";
+            cbPostinro.Text = "";
+            lblPostiKaupunki.Text = "";
         }
 
         private void cbPostinro_SelectedIndexChanged(object sender, EventArgs e)
-        {   //Postinumero on valittu, näytetään labelissa kaupunki
+        {   //Kun postinumero on valittu, näytetään labelissa kaupunki
             List<string> postinumerot = new List<string>();
             postinumerot.Add("HELSINKI");
             postinumerot.Add("KUOPIO");
@@ -142,15 +150,43 @@ namespace Ohjelmistotuotanto1
         }
 
         //Muokkaatietoja
-       
+        private void DGMuokkaa_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {//Syöttää datagridview klikatut arvot piilotettuihin text bokseihin            
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow rivi = this.DGMuokkaa.Rows[e.RowIndex];
+                tbMuokkaaEtunimi.Text = rivi.Cells[1].Value.ToString();
+                tbMuokkaaSukunimi.Text = rivi.Cells[2].Value.ToString();
+                tbMuokkaaPuhelinnro.Text = rivi.Cells[3].Value.ToString();
+                tbMuokkaaLahiosoite.Text = rivi.Cells[4].Value.ToString();               
+                cbMuokkaTietojaPostinro.Text = rivi.Cells[5].Value.ToString();
+                tbMuokkaaEmail.Text = rivi.Cells[6].Value.ToString();
 
-        //Poista tiedot
+                List<string> postinumerot3 = new List<string>();
+                postinumerot3.Add("HELSINKI");
+                postinumerot3.Add("KUOPIO");
+                postinumerot3.Add("KUUSAMO");
+                postinumerot3.Add("ÄKÄSLOMPOLO");
+                postinumerot3.Add("TAHKOVUORI");
+                lblMuokkaaTietojaPostinro.Text = postinumerot3[cbMuokkaTietojaPostinro.SelectedIndex];
+            }
+        }
+        private void BtnMuokkaaAsiakkaanTietoja_Click(object sender, EventArgs e)
+        {
+            MiniPanelMuokkaa.Visible = true;
+        }
+
+        //Poista asiakkaan tiedot tietokannasta sekä datagridviewistä
         private void btnPoistaAsiakas_Click(object sender, EventArgs e)
-        {           
-            asiakasBindingSource.RemoveAt(DGPoista.CurrentCell.RowIndex);
-            Validate();
-            AsiakasTableAdapter.Update(this.vnDataSet);
-            this.AsiakasTableAdapter.Fill(vnDataSet.asiakas);
+        {
+            if (MessageBox.Show("Haluatko varmasti poistaa asiakkaan?", "Poista asiakas", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                asiakasBindingSource.RemoveAt(DGPoista.CurrentCell.RowIndex);
+
+                Validate();
+                AsiakasTableAdapter.Update(this.vnDataSet);
+                this.AsiakasTableAdapter.Fill(vnDataSet.asiakas);            
+            }
         }
 
         //Asiakkaan tietojen Rajoituksia
@@ -195,67 +231,33 @@ namespace Ohjelmistotuotanto1
 
         private void btnEtsiPoistettava_Click(object sender, EventArgs e) //KESKEN
         {
-            string etsiAsiakas = tbHaePoistettavaAsiakas.Text;
-            DGPoista.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            try
-            {
-                foreach (DataGridView rivi in DGPoista.Rows)
-                {
+            DGPoista.SelectionMode = DataGridViewSelectionMode.FullRowSelect; //valitaan koko rivi
 
-                    if (rivi.Columns[4].ValueType.ToString().Equals(etsiAsiakas))
-                    {
-                        rivi.AllowUserToAddRows = true;
-                        break;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Tällä tiedolla ei löytynyt ketään.");
-            }
-        }
 
-    
+        }       
 
-        private void btnTallennaAsiakkaanMuokkaukset_Click(object sender, EventArgs e) //KESKEN tallennukset
-        {
-            foreach (DataGridViewRow rivit in DGMuokkaa.Rows)
-            {
-                if (rivit.Cells[1].ToString() == tbEtunimi.Text)
-                {
-                   // rivit.Cells[1] = tbMuokkaaEtunimi.Text;
-                    AsiakasTableAdapter.Update(vnDataSet);
-                }
-            }
-            
+        private void btnTallennaAsiakkaanMuokkaukset_Click(object sender, EventArgs e) //KESKEN tallennukset -> luo aina uuden rivin Insert toiminto eikä päivitä muokattavaa
+        {       
             Validate();
+            asiakasBindingSource.EndEdit();
             AsiakasTableAdapter.Update(this.vnDataSet);
-            AsiakasTableAdapter.Insert(cbMuokkaTietojaPostinro.Text, tbMuokkaaEtunimi.Text, tbMuokkaaSukunimi.Text, tbMuokkaaLahiosoite.Text, tbMuokkaaEmail.Text, tbMuokkaaPuhelinnro.Text);
-            //AsiakasTableAdapter.Fill(vnDataSet.asiakas);
-
-            MessageBox.Show("Tiedot tallennettu onnistuneesti!");
-        }
-
-        private void DGMuokkaa_CellContentDoubleClick_1(object sender, DataGridViewCellEventArgs e) //Option 2 hos Muokkaa napin kautta ei lähde  toimimaan
-        {
+            this.AsiakasTableAdapter.Fill(this.vnDataSet.asiakas);
             MiniPanelMuokkaa.Visible = true;
-            int i;
-            i = e.RowIndex;
-            DataGridViewRow rivi = DGMuokkaa.Rows[i];
-            tbMuokkaaEtunimi.Text = rivi.Cells[1].Value.ToString();
-            tbMuokkaaSukunimi.Text = rivi.Cells[2].Value.ToString();
-            tbMuokkaaLahiosoite.Text = rivi.Cells[4].Value.ToString();
-            cbMuokkaTietojaPostinro.Text = rivi.Cells[5].Value.ToString();
-            tbMuokkaaEmail.Text = rivi.Cells[6].Value.ToString();
-            tbMuokkaaPuhelinnro.Text = rivi.Cells[3].Value.ToString();
-
-            List<string> postinumerot2 = new List<string>();
-            postinumerot2.Add("HELSINKI");
-            postinumerot2.Add("KUOPIO");
-            postinumerot2.Add("KUUSAMO");
-            postinumerot2.Add("ÄKÄSLOMPOLO");
-            postinumerot2.Add("TAHKOVUORI");
-            lblMuokkaaTietojaPostinro.Text = postinumerot2[cbMuokkaTietojaPostinro.SelectedIndex];
         }
+       
+       
+        //Kun formia ollaan sulkemassa
+        private void Form_FormClosing(object sender, FormClosingEventArgs e)
+        {         
+            if (MessageBox.Show("Haluatko varmasti sulkea ohjelman?", "Sulje ohjelma", 
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.Activate();
+            }
+            else
+            {
+                e.Cancel = true;
+            }           
+        }       
     }     
 }

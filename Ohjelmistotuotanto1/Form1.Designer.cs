@@ -33,6 +33,9 @@ namespace Ohjelmistotuotanto1
             this.ParentPanel = new System.Windows.Forms.Panel();
             this.AloitusPaneeli = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.CbtnLisaaAsiakas = new Ohjelmistotuotanto1.CustomButton();
+            this.CbtnPoistaAsiakas = new Ohjelmistotuotanto1.CustomButton();
+            this.CbtnMuokkaaAsiakas = new Ohjelmistotuotanto1.CustomButton();
             this.PanelLisaaAsiakas = new System.Windows.Forms.Panel();
             this.lblPostiKaupunki = new System.Windows.Forms.Label();
             this.cbPostinro = new System.Windows.Forms.ComboBox();
@@ -96,9 +99,6 @@ namespace Ohjelmistotuotanto1
             this.btnTallennaAsiakkaanMuokkaukset = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.AsiakasTableAdapter = new Ohjelmistotuotanto1.DataSet1TableAdapters.asiakasTableAdapter();
-            this.CbtnLisaaAsiakas = new Ohjelmistotuotanto1.CustomButton();
-            this.CbtnPoistaAsiakas = new Ohjelmistotuotanto1.CustomButton();
-            this.CbtnMuokkaaAsiakas = new Ohjelmistotuotanto1.CustomButton();
             this.LaskutBtn = new Ohjelmistotuotanto1.CustomButton();
             this.AsiakkaatBtn = new Ohjelmistotuotanto1.CustomButton();
             this.PalvelutBtn = new Ohjelmistotuotanto1.CustomButton();
@@ -146,6 +146,33 @@ namespace Ohjelmistotuotanto1
             this.label1.Size = new System.Drawing.Size(227, 37);
             this.label1.TabIndex = 3;
             this.label1.Text = "Asiakashallinta";
+            // 
+            // CbtnLisaaAsiakas
+            // 
+            this.CbtnLisaaAsiakas.Location = new System.Drawing.Point(93, 183);
+            this.CbtnLisaaAsiakas.Name = "CbtnLisaaAsiakas";
+            this.CbtnLisaaAsiakas.Size = new System.Drawing.Size(117, 67);
+            this.CbtnLisaaAsiakas.TabIndex = 2;
+            this.CbtnLisaaAsiakas.Text = "Lisää";
+            this.CbtnLisaaAsiakas.Click += new System.EventHandler(this.CbtnLisaaAsiakas_Click);
+            // 
+            // CbtnPoistaAsiakas
+            // 
+            this.CbtnPoistaAsiakas.Location = new System.Drawing.Point(398, 183);
+            this.CbtnPoistaAsiakas.Name = "CbtnPoistaAsiakas";
+            this.CbtnPoistaAsiakas.Size = new System.Drawing.Size(115, 67);
+            this.CbtnPoistaAsiakas.TabIndex = 1;
+            this.CbtnPoistaAsiakas.Text = "Poista";
+            this.CbtnPoistaAsiakas.Click += new System.EventHandler(this.CbtnPoistaAsiakas_Click);
+            // 
+            // CbtnMuokkaaAsiakas
+            // 
+            this.CbtnMuokkaaAsiakas.Location = new System.Drawing.Point(240, 183);
+            this.CbtnMuokkaaAsiakas.Name = "CbtnMuokkaaAsiakas";
+            this.CbtnMuokkaaAsiakas.Size = new System.Drawing.Size(129, 67);
+            this.CbtnMuokkaaAsiakas.TabIndex = 0;
+            this.CbtnMuokkaaAsiakas.Text = "Muokkaa";
+            this.CbtnMuokkaaAsiakas.Click += new System.EventHandler(this.CbtnMuokkaaAsiakas_Click);
             // 
             // PanelLisaaAsiakas
             // 
@@ -522,7 +549,8 @@ namespace Ohjelmistotuotanto1
             this.DGMuokkaa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGMuokkaa.Size = new System.Drawing.Size(474, 152);
             this.DGMuokkaa.TabIndex = 24;
-            this.DGMuokkaa.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGMuokkaa_CellContentDoubleClick_1);
+            this.DGMuokkaa.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGMuokkaa_CellContentClick);
+
             // 
             // asiakasidDataGridViewTextBoxColumn
             // 
@@ -737,6 +765,7 @@ namespace Ohjelmistotuotanto1
             this.BtnMuokkaaAsiakkaanTietoja.TabIndex = 22;
             this.BtnMuokkaaAsiakkaanTietoja.Text = "Muokkaa";
             this.BtnMuokkaaAsiakkaanTietoja.UseVisualStyleBackColor = true;
+            this.BtnMuokkaaAsiakkaanTietoja.Click += new System.EventHandler(this.BtnMuokkaaAsiakkaanTietoja_Click);
             // 
             // label10
             // 
@@ -769,33 +798,6 @@ namespace Ohjelmistotuotanto1
             // AsiakasTableAdapter
             // 
             this.AsiakasTableAdapter.ClearBeforeFill = true;
-            // 
-            // CbtnLisaaAsiakas
-            // 
-            this.CbtnLisaaAsiakas.Location = new System.Drawing.Point(93, 183);
-            this.CbtnLisaaAsiakas.Name = "CbtnLisaaAsiakas";
-            this.CbtnLisaaAsiakas.Size = new System.Drawing.Size(117, 67);
-            this.CbtnLisaaAsiakas.TabIndex = 2;
-            this.CbtnLisaaAsiakas.Text = "Lisää";
-            this.CbtnLisaaAsiakas.Click += new System.EventHandler(this.CbtnLisaaAsiakas_Click);
-            // 
-            // CbtnPoistaAsiakas
-            // 
-            this.CbtnPoistaAsiakas.Location = new System.Drawing.Point(398, 183);
-            this.CbtnPoistaAsiakas.Name = "CbtnPoistaAsiakas";
-            this.CbtnPoistaAsiakas.Size = new System.Drawing.Size(115, 67);
-            this.CbtnPoistaAsiakas.TabIndex = 1;
-            this.CbtnPoistaAsiakas.Text = "Poista";
-            this.CbtnPoistaAsiakas.Click += new System.EventHandler(this.CbtnPoistaAsiakas_Click);
-            // 
-            // CbtnMuokkaaAsiakas
-            // 
-            this.CbtnMuokkaaAsiakas.Location = new System.Drawing.Point(240, 183);
-            this.CbtnMuokkaaAsiakas.Name = "CbtnMuokkaaAsiakas";
-            this.CbtnMuokkaaAsiakas.Size = new System.Drawing.Size(129, 67);
-            this.CbtnMuokkaaAsiakas.TabIndex = 0;
-            this.CbtnMuokkaaAsiakas.Text = "Muokkaa";
-            this.CbtnMuokkaaAsiakas.Click += new System.EventHandler(this.CbtnMuokkaaAsiakas_Click);
             // 
             // LaskutBtn
             // 
@@ -872,6 +874,7 @@ namespace Ohjelmistotuotanto1
             this.MinimizeBox = false;
             this.Name = "Form";
             this.Text = "m";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
             this.Load += new System.EventHandler(this.Form_Load);
             this.ParentPanel.ResumeLayout(false);
             this.AloitusPaneeli.ResumeLayout(false);

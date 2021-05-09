@@ -8,8 +8,6 @@ namespace Ohjelmistotuotanto1.Properties
 {
     class Asiakkaat
     {
-      
-      //  private char postinro;
         private string etunimi;
         private string sukunimi;
         private string lahiosoite;
@@ -18,11 +16,10 @@ namespace Ohjelmistotuotanto1.Properties
         private char postinnro;
 
         private string Etunimi { get { return etunimi; } }
-        private string Sukunimi {  get { return sukunimi; } }
+        private string Sukunimi { get { return sukunimi; } }
         private string Lähiosoite { get { return lahiosoite; } }
         private string Sähköposti { get { return email; } }
         private string Puhelinnumero { get { return puhelinnro; } }
         private char Postinumero { get { return postinnro; } }
-
     }
 }
